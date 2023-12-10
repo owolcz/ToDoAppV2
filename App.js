@@ -1,20 +1,48 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// App.js
+import React, { useState } from 'react';
+import { SafeAreaView, StyleSheet } from 'react-native';
+import TaskList from './src/components/TaskList';
 
-export default function App() {
+const App = () => {
+  const [tasks, setTasks] = useState([
+    { id: 1, title: 'Task 1', completed: false },
+    { id: 2, title: 'Task 2', completed: true },
+    // Dodaj więcej zadań według potrzeb
+  ]);
+
+  const handleTaskEdit = (taskId, taskData) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, ...taskData } : task
+      )
+    );
+  };
+
+  const handleTaskAdd = (taskData) => {
+    setTasks((prevTasks) => [...prevTasks, { id: prevTasks.length + 1, ...taskData }]);
+  };
+
+  const handleTaskDelete = (taskId) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <TaskList
+        tasks={tasks}
+        onTaskEdit={handleTaskEdit}
+        onTaskAdd={handleTaskAdd}
+        onTaskDelete={handleTaskDelete}
+      />
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 16,
   },
 });
+
+export default App;

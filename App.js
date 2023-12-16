@@ -6,7 +6,7 @@ import TaskList from './src/components/TaskList';
 const App = () => {
   const [tasks, setTasks] = useState([
     { id: 1, title: 'Task 1', completed: false },
-    { id: 2, title: 'Task 2', completed: true },
+
     // Dodaj więcej zadań według potrzeb
   ]);
 

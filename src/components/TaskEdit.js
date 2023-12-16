@@ -5,6 +5,7 @@ import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 const TaskEdit = ({ onSave, onCancel, task }) => {
   const [title, setTitle] = useState(task ? task.title : '');
 
+  // Obsługuje zapisanie zmian i anulowanie
   const handleSave = () => {
     onSave({ title });
   };
@@ -12,12 +13,16 @@ const TaskEdit = ({ onSave, onCancel, task }) => {
   return (
     <View style={styles.container}>
       <Text>Edit Task</Text>
+
+      {/* Pole tekstowe do edycji tytułu zadania */}
       <TextInput
         style={styles.input}
         placeholder="Task Title"
         value={title}
         onChangeText={(text) => setTitle(text)}
       />
+
+      {/* Przyciski do zapisania zmian lub anulowania */}
       <Button title="Save" onPress={handleSave} />
       <Button title="Cancel" onPress={onCancel} />
     </View>
